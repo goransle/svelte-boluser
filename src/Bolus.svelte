@@ -3,6 +3,7 @@
 
   let IUs = 1;
   let insulin = "Novorapid";
+  let step = 0.5;
 
   async function sendRequest() {
     const req = new Request(
@@ -28,6 +29,6 @@
 </script>
 
 <main>
-  <input type="number" bind:value={IUs} />
+  <input type="number" bind:value={IUs} step={step} />
   <input on:click={sendRequest} type="submit" />
 </main>
