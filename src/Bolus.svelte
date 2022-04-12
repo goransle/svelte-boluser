@@ -24,7 +24,6 @@
     const response = await fetch(req);
 
     const json = await response.json();
-    console.log(response, json);
   }
 </script>
 
