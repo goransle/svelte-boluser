@@ -1,9 +1,18 @@
 <script lang="ts">
+import { select_value } from 'svelte/internal';
+
   import { API_KEY, API_URL } from "./stores";
+
+  const eventTypes = [
+    'Meal bolus',
+    'Correction',
+    'Other'
+  ];
 
   let IUs = 1;
   let insulin = "Novorapid";
   let step = 0.5;
+  let eventType = eventTypes[0];
 
   async function sendRequest() {
     const req = new Request(
@@ -16,7 +25,7 @@
         body: JSON.stringify({
           insulin: IUs,
           units: "IU",
-          eventType: "Meal bolus",
+          eventType,
           entered_by: "boluser",
         }),
       }
@@ -59,6 +68,15 @@
         }}>{value}</button
       >
     {/each}
+  </div>
+  <div>
+  <select on:change={(e)=>{
+    eventType = e.currentTarget.value;
+  }}>
+    {#each eventTypes as eventOption }
+      <option selected ="{eventOption === eventType}" value="{eventOption}">{eventOption}</option>
+    {/each}
+  </select>
   </div>
   <input on:click={sendRequest} type="submit" value="Submit" />
 </main>
