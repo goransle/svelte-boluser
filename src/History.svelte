@@ -14,7 +14,9 @@
     isLoading = true;
     const req = new Request(
       [$API_URL, "/api/v1/", "treatments?count=3&find[insulin][$gte]=0"]
-        .join("")
+        .join(""),{
+          cache: 'no-cache'
+        }
     );
     const response = await fetch(req);
     data = await response.json();
