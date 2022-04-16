@@ -1,7 +1,8 @@
 <script lang="ts">
   import { API_URL } from "./stores";
   import { onMount } from "svelte";
-  import { Jumper } from 'svelte-loading-spinners'
+  import { Jumper } from 'svelte-loading-spinners';
+  import ky from 'ky';
 
   onMount(() => {
     getTreatments().then(()=>{
@@ -12,14 +13,18 @@
 
   async function getTreatments() {
     isLoading = true;
-    const req = new Request(
-      [$API_URL, "/api/v1/", "treatments?count=3&find[insulin][$gte]=0"]
-        .join(""),{
-          cache: 'no-cache'
+    const searchParams = new URLSearchParams({
+      count: '3',
+      'find[insulin][$gte]': '0'
+    });
+
+    data = await ky.get(
+      "api/v1/treatments",{
+          prefixUrl: $API_URL,
+          searchParams
         }
-    );
-    const response = await fetch(req);
-    data = await response.json();
+    ).json();
+
     setTimeout(() => {
       isLoading = false;
     }, 1000);

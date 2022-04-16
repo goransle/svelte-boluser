@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ky from "ky";
   import { API_KEY, API_URL } from "./stores";
 
   const eventTypes = ["Meal bolus", "Correction bolus", "Other"];
@@ -9,24 +10,21 @@
   let eventType = eventTypes[0];
 
   async function sendRequest() {
-    const req = new Request(
-      [$API_URL, "/api/v1/", "treatments.json"].join(""),
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          insulin: IUs,
-          units: "IU",
-          eventType,
-          entered_by: "boluser",
-        }),
-      }
-    );
-    const response = await fetch(req);
+    const jsonBody = {
+      insulin: IUs,
+      units: "IU",
+      eventType,
+      entered_by: "boluser",
+    };
 
-    const json = await response.json();
+    const response = await ky
+      .post("api/v1/treatments.json", {
+        json: jsonBody,
+        prefixUrl: $API_URL
+      })
+      .json();
+
+    console.log(response);
   }
 </script>
 
@@ -50,7 +48,8 @@
       <button
         on:click={() => {
           IUs += 0.5;
-        }}>+½</button>
+        }}>+½</button
+      >
     {/if}
     <button
       on:click={() => {
