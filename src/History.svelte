@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { API_URL } from "./stores";
   import { onMount } from "svelte";
   import { Jumper } from 'svelte-loading-spinners';
   import ky from 'ky';
+  import { CONFIG } from "./stores";
+
+  const {API_URL} = $CONFIG;
 
   onMount(() => {
     getTreatments().then(()=>{
@@ -20,7 +22,7 @@
 
     data = await ky.get(
       "api/v1/treatments",{
-          prefixUrl: $API_URL,
+          prefixUrl: API_URL,
           searchParams
         }
     ).json();

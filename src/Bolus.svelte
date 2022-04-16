@@ -1,6 +1,8 @@
 <script lang="ts">
   import ky from "ky";
-  import { API_KEY, API_URL } from "./stores";
+  import { CONFIG } from "./stores";
+
+  const {API_URL} = $CONFIG;
 
   const eventTypes = ["Meal bolus", "Correction bolus", "Other"];
 
@@ -20,7 +22,7 @@
     const response = await ky
       .post("api/v1/treatments.json", {
         json: jsonBody,
-        prefixUrl: $API_URL
+        prefixUrl: API_URL
       })
       .json();
 
