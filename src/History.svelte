@@ -23,7 +23,8 @@
     data = await ky.get(
       "api/v1/treatments",{
           prefixUrl: API_URL,
-          searchParams
+          searchParams,
+          cache: 'no-cache'
         }
     ).json();
 
