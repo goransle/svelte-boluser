@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Jumper } from 'svelte-loading-spinners';
   import ky from 'ky';
   import { CONFIG } from "./stores";
 
@@ -39,9 +38,6 @@
 </script>
 
 <main>
-  {#if !data && isLoading}
-    <Jumper></Jumper>
-  {/if}
   {#if data}
   <div style="display:inline-flex;">
     <table class:loading="{isLoading}">
