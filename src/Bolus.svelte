@@ -1,5 +1,6 @@
 <script lang="ts">
   import ky from "ky";
+import Button from './Button.svelte';
   import { CONFIG } from "./stores";
 
   const {API_URL} = $CONFIG;
@@ -30,41 +31,41 @@
   }
 </script>
 
-<main>
-  <div id="input">
-    <button
-      on:click={() => {
+<div>
+  <div>
+    <Button
+      handleClick={() => {
         IUs -= 1;
       }}
       >-1
-    </button>
+    </Button>
     {#if step === 0.5}
-      <button
-        on:click={() => {
+      <Button
+        handleClick={() => {
           IUs -= 0.5;
-        }}>-½</button
+        }}>-½</Button
       >
     {/if}
-    <input type="number" bind:value={IUs} {step} />
+    <input class="w-10" type="number" bind:value={IUs} {step} />
     {#if step === 0.5}
-      <button
-        on:click={() => {
+      <Button
+        handleClick={() => {
           IUs += 0.5;
-        }}>+½</button
+        }}>+½</Button
       >
     {/if}
-    <button
-      on:click={() => {
+    <Button
+      handleClick={() => {
         IUs += 1;
-      }}>+1</button
+      }}>+1</Button
     >
   </div>
-  <div id="singles">
+  <div>
     {#each [0.5, 1, 1.5, 2, 3] as value}
-      <button
-        on:click={() => {
+      <Button
+        handleClick={() => {
           IUs = value;
-        }}>{value}</button
+        }}>{value}</Button
       >
     {/each}
   </div>
@@ -81,35 +82,5 @@
       {/each}
     </select>
   </div>
-  <input on:click={sendRequest} type="submit" value="Submit" />
-</main>
-
-<style>
-  main {
-    width: 100%;
-  }
-  div {
-    margin: 1em 0;
-  }
-  #singles {
-    display: flex;
-  }
-  #singles button {
-    width: 100px;
-    height: 80px;
-  }
-  #input {
-    display: flex;
-    align-items: center;
-    align-content: space-around;
-    width: 100%;
-    height: 8em;
-  }
-  #input button {
-    width: 12em;
-    height: 100%;
-  }
-  #input input {
-    width: 3em;
-  }
-</style>
+  <input class="border-2 border-solid border-black p-2" on:click={sendRequest} type="submit" value="Submit" />
+</div>

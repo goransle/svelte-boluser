@@ -6,7 +6,7 @@
   export let isConfiguring = false;
 </script>
 
-<main>
+<main class="container mx-auto">
   {#if isConfiguring}
     <Config />
   {/if}
@@ -19,10 +19,3 @@
   <History />
   <Bolus />
 </main>
-
-<style>
-  main {
-    padding: 1em;
-    margin: 0 auto;
-  }
-</style>
