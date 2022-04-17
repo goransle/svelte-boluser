@@ -31,7 +31,7 @@ import Button from './Button.svelte';
   }
 </script>
 
-<div>
+<div class="column mx-auto">
   <div>
     <Button
       handleClick={() => {
@@ -84,3 +84,9 @@ import Button from './Button.svelte';
   </div>
   <input class="border-2 border-solid border-black p-2" on:click={sendRequest} type="submit" value="Submit" />
 </div>
+
+<style>
+  div{
+    @apply py-7;
+  }
+</style>

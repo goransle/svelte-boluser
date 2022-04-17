@@ -64,7 +64,7 @@
 </main>
 <style>
   table.loading {
-    border: 1px dotted black;
+    @apply border-dotted border-2;
   }
   th {
     text-align: left;
